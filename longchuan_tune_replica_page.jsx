@@ -989,13 +989,13 @@ function ModernTraining({ mode, progress, progressLabel, playback, recording, ly
 function ModernPracticeCard({ mode, progress, progressLabel, playback, recording, lyricIndex, onReplay, onTogglePlay, onFinish }: { mode: Mode; progress: number; progressLabel: string; playback: PlaybackState; recording: RecordingState; lyricIndex: number; onReplay: () => void; onTogglePlay: () => void; onFinish: () => void }) {
   const isTone = mode === "tone";
   return (
-    <section className="modern-surface grid grid-rows-[auto_1fr_auto_auto] gap-4 p-4">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#e7ddcf] pb-5">
+    <section className="modern-surface grid gap-4 p-4">
+      <div className="grid gap-3 border-b border-[#e7ddcf] pb-4">
         <div>
-          <div className={`text-sm font-black tracking-[3px] ${isTone ? "text-[#4f57c8]" : "text-[#b76a16]"}`}>{isTone ? "声调歌词跟读" : "旋律歌词跟唱"}</div>
-          <div className="mt-2 text-2xl font-black tracking-[1px] text-[#172132]">正月里是新年哪</div>
+          <div className={`text-xs font-black tracking-[3px] ${isTone ? "text-[#4f57c8]" : "text-[#b76a16]"}`}>{isTone ? "声调歌词跟读" : "旋律歌词跟唱"}</div>
+          <div className="mt-2 text-xl font-black tracking-[1px] text-[#172132]">正月里是新年哪</div>
         </div>
-        <div className="rounded-[8px] border border-[#ded6c8] bg-white/76 px-4 py-3 text-sm font-bold tracking-[1px] text-[#5d6570]">{isTone ? "升降 · 轻重 · 尾音" : "音高 · 节拍 · 连贯"}</div>
+        <div className="w-fit rounded-[8px] border border-[#ded6c8] bg-white/76 px-3 py-2 text-xs font-bold tracking-[1px] text-[#5d6570]">{isTone ? "升降 · 轻重 · 尾音" : "音高 · 节拍 · 连贯"}</div>
       </div>
       <ModernLyricStage mode={mode} activeIndex={lyricIndex} />
       <ModernProgressBar progress={progress} progressLabel={progressLabel} />
@@ -1019,17 +1019,17 @@ function ModernLyricStage({ mode, activeIndex }: { mode: Mode; activeIndex: numb
     return <ModernMelodyStage activeIndex={activeIndex} current={melodyLine} previous={previousMelody} next={nextMelody} previousLyric={previousLyric} nextLyric={nextLyric} />;
   }
   return (
-    <div className={`grid min-h-[360px] gap-5 rounded-[8px] border p-5 sm:p-6 ${isTone ? "border-[#dfe3ff] bg-[linear-gradient(145deg,rgba(251,252,255,.96),rgba(236,240,255,.78))]" : "border-[#f0d9b5] bg-[linear-gradient(145deg,rgba(255,253,247,.98),rgba(255,240,216,.76))]"}`}>
-      <div className="grid gap-4 lg:grid-cols-[1fr_260px]">
-        <div className="grid min-h-[214px] grid-rows-[36px_1fr_34px] gap-3">
-          <div key={`tone-prev-${activeIndex}`} className="lyric-prev-in truncate text-center text-lg font-bold tracking-[2px] text-[#8992a3]/70">{previousLyric}</div>
-          <div key={`${mode}-${activeIndex}`} className="lyric-stage-card lyric-focus-in grid place-items-center rounded-[8px] border border-white/80 bg-white/90 px-4 text-center shadow-[0_18px_34px_rgba(31,38,51,.09)]">
-            <div className="min-w-0">
-              <div className="truncate text-[clamp(30px,5vw,56px)] font-black leading-tight tracking-[2px] text-[#172132]">{currentLyric}</div>
-              <div className={`mt-4 truncate text-base font-black tracking-[3px] ${isTone ? "text-[#4f57c8]" : "text-[#b76a16]"}`}>{isTone ? toneLine.guide : melodyLine.notation}</div>
+    <div className="grid gap-4 rounded-[8px] border border-[#dfe3ff] bg-[linear-gradient(145deg,rgba(251,252,255,.96),rgba(236,240,255,.78))] p-4">
+      <div className="grid gap-4">
+        <div className="grid gap-3">
+          <div key={`tone-prev-${activeIndex}`} className="lyric-prev-in text-center text-base font-bold leading-[1.35] tracking-[1px] text-[#8992a3]/70">{previousLyric}</div>
+          <div key={`${mode}-${activeIndex}`} className="lyric-stage-card lyric-focus-in grid min-h-[156px] place-items-center rounded-[8px] border border-white/80 bg-white/90 px-4 py-5 text-center shadow-[0_18px_34px_rgba(31,38,51,.09)]">
+            <div className="min-w-0 max-w-full">
+              <div className="whitespace-normal break-words text-[34px] font-black leading-[1.12] tracking-[1px] text-[#172132]">{currentLyric}</div>
+              <div className="mt-4 whitespace-normal break-words text-sm font-black leading-[1.45] tracking-[1px] text-[#4f57c8]">{toneLine.guide}</div>
             </div>
           </div>
-          <div key={`tone-next-${activeIndex}`} className="lyric-next-in truncate text-center text-base font-bold tracking-[2px] text-[#8992a3]/48">{nextLyric}</div>
+          <div key={`tone-next-${activeIndex}`} className="lyric-next-in text-center text-sm font-bold leading-[1.35] tracking-[1px] text-[#8992a3]/52">{nextLyric}</div>
         </div>
         <ModernScoreBox mode={mode} activeIndex={activeIndex} notation={melodyLine.notation} />
       </div>
@@ -1051,9 +1051,9 @@ function ModernScoreBox({ mode, activeIndex, notation }: { mode: Mode; activeInd
   ];
   const path = getCircularItem(paths, activeIndex, paths[0]);
   return (
-    <div className="modern-soft grid min-h-[214px] place-items-center p-5">
+    <div className="modern-soft grid min-h-[150px] place-items-center p-4">
       {isTone ? (
-        <svg viewBox="0 0 340 190" className="h-full min-h-[170px] w-full text-[#4f57c8]" aria-hidden="true">
+        <svg viewBox="0 0 340 190" className="h-full min-h-[128px] w-full text-[#4f57c8]" aria-hidden="true">
           <path d={path} fill="none" stroke="currentColor" strokeWidth="9" strokeLinecap="round" />
           <circle cx="176" cy="112" r="11" fill="#fff" stroke="currentColor" strokeWidth="7" />
           <path d="M18 48 H322M18 96 H322M18 144 H322" stroke="currentColor" strokeWidth="2" opacity=".16" />
@@ -1083,7 +1083,7 @@ function ToneRelationStrip({ previous, current, next }: { previous: ToneLine; cu
   return (
     <div className="rounded-[8px] border border-[#dfe3ff] bg-white/78 p-4">
       <div className="mb-3 text-xs font-black tracking-[2px] text-[#6f78d5]">前后句语调关系</div>
-      <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-2">
+      <div className="grid gap-2">
         <ToneRelationNode label="前句" value={previous.contour} muted />
         <RelationArrow tone="tone" />
         <ToneRelationNode label="当前" value={current.contour} />
@@ -1096,7 +1096,7 @@ function ToneRelationStrip({ previous, current, next }: { previous: ToneLine; cu
 
 function ToneRelationNode({ label, value, muted = false }: { label: string; value: string; muted?: boolean }) {
   return (
-    <div className={`min-w-0 rounded-[8px] border px-2 py-3 text-center ${muted ? "border-[#e6e9ff] bg-[#f8f9ff] text-[#6f7890]" : "border-[#cfd5ff] bg-[#eef2ff] text-[#313a9f]"}`}>
+    <div className={`min-w-0 rounded-[8px] border px-3 py-3 text-left ${muted ? "border-[#e6e9ff] bg-[#f8f9ff] text-[#6f7890]" : "border-[#cfd5ff] bg-[#eef2ff] text-[#313a9f]"}`}>
       <div className="text-[11px] font-black tracking-[1px]">{label}</div>
       <div className="mt-2 text-xs font-bold leading-[1.35]">{value}</div>
     </div>
@@ -1105,36 +1105,36 @@ function ToneRelationNode({ label, value, muted = false }: { label: string; valu
 
 function RelationArrow({ tone }: { tone: "tone" | "melody" }) {
   return (
-    <div className={`text-lg font-black ${tone === "tone" ? "text-[#5d48d9]" : "text-[#d56906]"}`} aria-hidden="true">→</div>
+    <div className={`text-center text-lg font-black ${tone === "tone" ? "text-[#5d48d9]" : "text-[#d56906]"}`} aria-hidden="true">↓</div>
   );
 }
 
 function ModernMelodyStage({ activeIndex, current, previous, next, previousLyric, nextLyric }: { activeIndex: number; current: MelodyLine; previous: MelodyLine; next: MelodyLine; previousLyric: string; nextLyric: string }) {
   const notationItems = current.notation.split(/\s+/).filter(Boolean);
   return (
-    <div className="grid gap-4 rounded-[8px] border border-[#f0d9b5] bg-[linear-gradient(145deg,rgba(255,253,247,.98),rgba(255,244,230,.84))] p-5 sm:p-6">
-      <div key={`melody-stage-${activeIndex}`} className="lyric-stage-card relative min-h-[300px] overflow-hidden rounded-[8px] border border-[#f0d9b5] bg-[#fffaf1] px-6 py-8 text-center shadow-[inset_0_1px_0_rgba(255,255,255,.8)]">
+    <div className="grid gap-4 rounded-[8px] border border-[#f0d9b5] bg-[linear-gradient(145deg,rgba(255,253,247,.98),rgba(255,244,230,.84))] p-4">
+      <div key={`melody-stage-${activeIndex}`} className="lyric-stage-card relative min-h-[300px] overflow-hidden rounded-[8px] border border-[#f0d9b5] bg-[#fffaf1] px-4 py-6 text-center shadow-[inset_0_1px_0_rgba(255,255,255,.8)]">
         <MelodyLandscape />
         <div className="relative z-10 mx-auto max-w-[760px]">
-          <div className="lyric-prev-in text-[clamp(18px,2vw,24px)] font-bold tracking-[2px] text-[#6f7890]">{previousLyric}</div>
+          <div className="lyric-prev-in text-base font-bold leading-[1.35] tracking-[1px] text-[#6f7890]">{previousLyric}</div>
           <div className="mx-auto mt-4 h-px w-44 bg-[linear-gradient(90deg,transparent,#d9a65c,transparent)]" />
-          <div className="lyric-focus-in mt-8 font-serif text-[clamp(44px,7vw,76px)] font-black leading-tight tracking-[2px] text-[#10233c]">{current.lyric}</div>
-          <div className="notation-lift mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[clamp(25px,3vw,38px)] font-black leading-none text-[#c56505]">
+          <div className="lyric-focus-in mt-7 font-serif text-[46px] font-black leading-[1.08] tracking-[1px] text-[#10233c]">{current.lyric}</div>
+          <div className="notation-lift mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-[29px] font-black leading-none text-[#c56505]">
             {notationItems.map((item, index) => (
               <span key={`${item}-${index}`}>{item}</span>
             ))}
           </div>
-          <div className="lyric-next-in mt-8 text-[clamp(20px,2.6vw,28px)] font-bold tracking-[2px] text-[#172132]">{nextLyric}</div>
+          <div className="lyric-next-in mt-7 text-lg font-bold leading-[1.35] tracking-[1px] text-[#172132]">{nextLyric}</div>
         </div>
       </div>
       <MelodyRelationStrip previous={previous} current={current} next={next} />
-      <div className="rounded-[8px] border border-[#f0d9b5] bg-white/72 p-5">
-        <div className="mb-4 flex items-center gap-3 text-xl font-black tracking-[1px] text-[#172132]">
+      <div className="rounded-[8px] border border-[#f0d9b5] bg-white/72 p-4">
+        <div className="mb-4 flex items-center gap-3 text-lg font-black tracking-[1px] text-[#172132]">
           <span className="text-[#c56505]">✣</span>
           旋律提示
           <span className="grid h-5 w-5 place-items-center rounded-full border border-[#d7b17a] text-xs text-[#a9773c]">i</span>
         </div>
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-3">
           <MelodyTipCard title="音高走向" icon={<MelodyArrowIcon />} body="先上行至高音 1′，再逐步下行。" />
           <MelodyTipCard title="节奏型" icon={<span className="text-4xl leading-none text-[#c56505]">♫</span>} body="前半节奏较舒展，后半收束。" />
           <MelodyTipCard title="演唱提示" icon={<MelodyVoiceIcon />} body="音头清晰，气息连贯自然。" />
@@ -1160,7 +1160,7 @@ function MelodyRelationStrip({ previous, current, next }: { previous: MelodyLine
   return (
     <div className="rounded-[8px] border border-[#f0d9b5] bg-white/78 p-4">
       <div className="mb-3 text-xs font-black tracking-[2px] text-[#c56505]">前后句旋律关系</div>
-      <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-stretch gap-2">
+      <div className="grid gap-2">
         <MelodyRelationNode label="前句" value={previous.notation} muted />
         <RelationArrow tone="melody" />
         <MelodyRelationNode label="当前" value={current.notation} />
@@ -1173,7 +1173,7 @@ function MelodyRelationStrip({ previous, current, next }: { previous: MelodyLine
 
 function MelodyRelationNode({ label, value, muted = false }: { label: string; value: string; muted?: boolean }) {
   return (
-    <div className={`min-w-0 rounded-[8px] border px-2 py-3 text-center ${muted ? "border-[#f2dfc0] bg-[#fffaf3] text-[#846848]" : "border-[#efc991] bg-[#fff1dc] text-[#b85f05]"}`}>
+    <div className={`min-w-0 rounded-[8px] border px-3 py-3 text-left ${muted ? "border-[#f2dfc0] bg-[#fffaf3] text-[#846848]" : "border-[#efc991] bg-[#fff1dc] text-[#b85f05]"}`}>
       <div className="text-[11px] font-black tracking-[1px]">{label}</div>
       <div className="mt-2 whitespace-normal break-words text-sm font-black leading-[1.35]">{value}</div>
     </div>
@@ -1182,12 +1182,12 @@ function MelodyRelationNode({ label, value, muted = false }: { label: string; va
 
 function MelodyTipCard({ title, icon, body }: { title: string; icon: React.ReactNode; body: string }) {
   return (
-    <div className="rounded-[8px] border border-[#efd7b2] bg-white/78 p-5 text-center shadow-[0_10px_22px_rgba(181,103,22,.06)]">
-      <div className="flex items-center justify-center gap-4">
-        <div className="text-xl font-black tracking-[1px] text-[#172132]">{title}</div>
-        <div className="h-11 min-w-11 text-[#c56505]">{icon}</div>
+    <div className="rounded-[8px] border border-[#efd7b2] bg-white/78 p-4 shadow-[0_10px_22px_rgba(181,103,22,.06)]">
+      <div className="flex items-center justify-between gap-4">
+        <div className="text-lg font-black tracking-[1px] text-[#172132]">{title}</div>
+        <div className="h-10 min-w-10 text-[#c56505]">{icon}</div>
       </div>
-      <div className="mt-4 border-t border-[#ecd4ae] pt-4 text-lg font-semibold leading-[1.6] tracking-[1px] text-[#33404d]">{body}</div>
+      <div className="mt-3 border-t border-[#ecd4ae] pt-3 text-sm font-semibold leading-[1.7] tracking-[1px] text-[#33404d]">{body}</div>
     </div>
   );
 }
@@ -1221,11 +1221,11 @@ function ModernHintBox({ label, value, tone }: { label: string; value: string; t
 
 function ModernProgressBar({ progress, progressLabel }: { progress: number; progressLabel: string }) {
   return (
-    <div className="rounded-[8px] border border-[#e2d8c8] bg-white/72 p-5">
+    <div className="rounded-[8px] border border-[#e2d8c8] bg-white/72 p-4">
       <div className="relative h-4 overflow-hidden rounded-full bg-[#d9d4ca] shadow-[inset_0_2px_7px_rgba(32,41,54,.18)]">
         <div className="h-full rounded-full bg-[linear-gradient(90deg,#c51616,#d56906,#4f57c8)] shadow-[0_0_18px_rgba(213,105,6,.24)]" style={{ width: `${clampProgress(progress)}%` }} />
       </div>
-      <div className="mt-4 grid grid-cols-3 text-sm font-bold tracking-[1px] text-[#687181]">
+      <div className="mt-4 grid grid-cols-3 text-xs font-bold tracking-[.5px] text-[#687181]">
         <span>0:00</span>
         <span className="text-center">本次 {progressLabel}</span>
         <span className="text-right">25:00</span>
@@ -1236,13 +1236,13 @@ function ModernProgressBar({ progress, progressLabel }: { progress: number; prog
 
 function ModernControls({ playback, recording, onReplay, onTogglePlay, onFinish }: { playback: PlaybackState; recording: RecordingState; onReplay: () => void; onTogglePlay: () => void; onFinish: () => void }) {
   return (
-    <div className="grid grid-cols-3 gap-4 sm:flex sm:justify-center sm:gap-5">
+    <div className="grid grid-cols-3 gap-3">
       <ModernControlButton icon={<RotateCcwIcon size={28} strokeWidth={2.1} />} label="重录" onClick={onReplay} />
       <ModernControlButton icon={playback === "playing" ? <PauseIcon size={28} strokeWidth={2.1} /> : <PlayIcon size={28} strokeWidth={2.1} />} label={playback === "playing" ? "暂停" : "开始"} onClick={onTogglePlay} active={playback === "playing"} />
-      <button type="button" className={`modern-button min-h-[92px] border border-[#101b2c] bg-[#101b2c] px-5 text-white shadow-[0_16px_32px_rgba(16,27,44,.22)] sm:w-[140px] ${recording === "recording" ? "disc-playing" : "opacity-90"}`} aria-label="结束录音" onClick={onFinish}>
+      <button type="button" className={`modern-button min-h-[82px] border border-[#101b2c] bg-[#101b2c] px-3 text-white shadow-[0_16px_32px_rgba(16,27,44,.22)] ${recording === "recording" ? "disc-playing" : "opacity-90"}`} aria-label="结束录音" onClick={onFinish}>
         <div className="flex flex-col items-center justify-center gap-3">
           <DiscIcon size={32} strokeWidth={2.1} />
-          <span className="text-base font-black tracking-[1px]">结束录音</span>
+          <span className="text-sm font-black tracking-[1px]">结束录音</span>
         </div>
       </button>
     </div>
@@ -1251,10 +1251,10 @@ function ModernControls({ playback, recording, onReplay, onTogglePlay, onFinish 
 
 function ModernControlButton({ icon, label, onClick, active = false }: { icon: React.ReactNode; label: string; onClick: () => void; active?: boolean }) {
   return (
-    <button type="button" className={`modern-button min-h-[92px] border px-5 sm:w-[120px] ${active ? "border-[#cbd2f4] bg-[#eef2ff] text-[#313a9f]" : "border-[#ded6c8] bg-white/86 text-[#172132]"}`} aria-label={label} onClick={onClick}>
+    <button type="button" className={`modern-button min-h-[82px] border px-3 ${active ? "border-[#cbd2f4] bg-[#eef2ff] text-[#313a9f]" : "border-[#ded6c8] bg-white/86 text-[#172132]"}`} aria-label={label} onClick={onClick}>
       <div className="flex flex-col items-center justify-center gap-3">
         {icon}
-        <span className="text-base font-black tracking-[1px]">{label}</span>
+        <span className="text-sm font-black tracking-[1px]">{label}</span>
       </div>
     </button>
   );
