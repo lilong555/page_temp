@@ -229,7 +229,7 @@ export default function LongchuanTuneReplica() {
     const total = getLyricCount(activeMode);
     const timer = window.setInterval(() => {
       setLyricIndex((current) => getNextLyricIndex(current, total));
-    }, activeMode === "tone" ? 1300 : 1550);
+    }, activeMode === "tone" ? 5800 : 6200);
     return () => window.clearInterval(timer);
   }, [screen, playback, activeMode]);
 
@@ -303,10 +303,10 @@ export default function LongchuanTuneReplica() {
   }
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-[#f7f2e8] text-[#172132]">
+    <div className="flex min-h-screen w-full justify-center overflow-x-hidden bg-[#211f1a] text-[#172132]">
       <AnimationStyles />
       <ModernAppStyles />
-      <main className="relative min-h-screen overflow-hidden">
+      <main className="relative min-h-screen w-full max-w-[430px] overflow-hidden bg-[#f7f2e8] shadow-[0_0_70px_rgba(0,0,0,.45)]">
         <ModernBackground />
         <ModernHeader
           screen={screen}
@@ -366,19 +366,19 @@ function AnimationStyles() {
     .animate-route-in { animation: routeIn 520ms cubic-bezier(.2,.8,.2,1) both; }
     .animate-back-hint { animation: routeOutHint 1300ms ease-in-out infinite; }
     .animate-lyric-slide { animation: lyricSlide 520ms cubic-bezier(.2,.8,.2,1) both; }
-    .lyric-focus-in { animation: lyricFocusIn 680ms cubic-bezier(.16,.9,.24,1) both; }
-    .lyric-prev-in { animation: lyricPrevIn 560ms cubic-bezier(.2,.8,.2,1) both; }
-    .lyric-next-in { animation: lyricNextIn 560ms cubic-bezier(.2,.8,.2,1) both; }
-    .notation-lift span { animation: notationLift 520ms cubic-bezier(.2,.8,.2,1) both; }
-    .notation-lift span:nth-child(2) { animation-delay: 45ms; }
-    .notation-lift span:nth-child(3) { animation-delay: 90ms; }
-    .notation-lift span:nth-child(4) { animation-delay: 135ms; }
-    .notation-lift span:nth-child(5) { animation-delay: 180ms; }
-    .notation-lift span:nth-child(6) { animation-delay: 225ms; }
-    .notation-lift span:nth-child(7) { animation-delay: 270ms; }
-    .notation-lift span:nth-child(8) { animation-delay: 315ms; }
+    .lyric-focus-in { animation: lyricFocusIn 1280ms cubic-bezier(.16,.9,.24,1) both; }
+    .lyric-prev-in { animation: lyricPrevIn 1040ms cubic-bezier(.2,.8,.2,1) both; }
+    .lyric-next-in { animation: lyricNextIn 1040ms cubic-bezier(.2,.8,.2,1) both; }
+    .notation-lift span { animation: notationLift 980ms cubic-bezier(.2,.8,.2,1) both; }
+    .notation-lift span:nth-child(2) { animation-delay: 80ms; }
+    .notation-lift span:nth-child(3) { animation-delay: 160ms; }
+    .notation-lift span:nth-child(4) { animation-delay: 240ms; }
+    .notation-lift span:nth-child(5) { animation-delay: 320ms; }
+    .notation-lift span:nth-child(6) { animation-delay: 400ms; }
+    .notation-lift span:nth-child(7) { animation-delay: 480ms; }
+    .notation-lift span:nth-child(8) { animation-delay: 560ms; }
     .lyric-stage-card { position: relative; overflow: hidden; }
-    .lyric-stage-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,.65) 48%, transparent 74%); animation: lyricGlowSweep 760ms ease both; pointer-events: none; }
+    .lyric-stage-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,.65) 48%, transparent 74%); animation: lyricGlowSweep 1320ms ease both; pointer-events: none; }
     .animate-soft-breath { animation: softBreath 2400ms ease-in-out infinite; }
     .tap-btn { position: relative; overflow: hidden; transform: translateZ(0); transition: transform 180ms ease, box-shadow 220ms ease, border-color 220ms ease, background-color 220ms ease; }
     .tap-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(38,35,28,.12); }
@@ -759,30 +759,30 @@ function ModernBackground() {
 
 function ModernHeader({ screen, mode, statusText, recording, onBack, onOpenSettings, onOpenHelp }: { screen: Screen; mode: Mode; statusText: string; recording: RecordingState; onBack: () => void; onOpenSettings: () => void; onOpenHelp: () => void }) {
   return (
-    <header className="relative z-20 mx-auto flex w-full max-w-[1360px] items-center gap-5 px-6 py-5">
-      <button className="modern-button grid h-12 w-12 place-items-center border border-[#ded6c8] bg-white/85 text-[#172132]" aria-label={screen === "home" ? "返回" : "返回曲目主页"} onClick={onBack}>
-        <ChevronLeftIcon size={28} strokeWidth={2.3} />
+    <header className="relative z-20 mx-auto flex w-full max-w-[430px] items-center gap-3 px-4 py-4">
+      <button className="modern-button grid h-11 w-11 shrink-0 place-items-center border border-[#ded6c8] bg-white/85 text-[#172132]" aria-label={screen === "home" ? "返回" : "返回曲目主页"} onClick={onBack}>
+        <ChevronLeftIcon size={26} strokeWidth={2.3} />
       </button>
       <div className="min-w-0">
-        <div className="truncate font-serif text-[clamp(30px,4vw,48px)] font-black leading-none tracking-[2px] text-[#172132]">{screen === "home" ? "龙船调训练" : getTrainingTitle(mode)}</div>
-        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-semibold tracking-[1px] text-[#687181]">
+        <div className="truncate font-serif text-[clamp(28px,8vw,38px)] font-black leading-none tracking-[1px] text-[#172132]">{screen === "home" ? "龙船调训练" : getTrainingTitle(mode)}</div>
+        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold tracking-[1px] text-[#687181]">
           <span className={mode === "tone" ? "text-[#4f57c8]" : "text-[#b76a16]"}>{screen === "home" ? "训练主页" : "训练页面"}</span>
           <span>七声音阶</span>
           <span>古风·中级</span>
         </div>
       </div>
       {screen !== "home" && (
-        <div className="ml-auto hidden items-center gap-3 rounded-[8px] border border-[#e5dccd] bg-white/76 px-4 py-3 text-sm font-semibold text-[#46505b] shadow-[0_10px_24px_rgba(37,31,22,.06)] sm:flex">
+        <div className="ml-auto hidden items-center gap-3 rounded-[8px] border border-[#e5dccd] bg-white/76 px-4 py-3 text-sm font-semibold text-[#46505b] shadow-[0_10px_24px_rgba(37,31,22,.06)]">
           <span className={`h-3 w-3 rounded-full ${recording === "recording" ? "bg-[#19bb59] record-dot" : "bg-[#aeb4ba]"}`} />
           {statusText}
         </div>
       )}
       <div className={`${screen === "home" ? "ml-auto" : ""} flex items-center gap-3`}>
-        <button className="modern-button grid h-12 w-12 place-items-center border border-[#ded6c8] bg-white/85 text-[#172132]" aria-label="设置" onClick={onOpenSettings}>
-          <SettingsIcon size={25} strokeWidth={2.3} />
+        <button className="modern-button grid h-10 w-10 place-items-center border border-[#ded6c8] bg-white/85 text-[#172132]" aria-label="设置" onClick={onOpenSettings}>
+          <SettingsIcon size={22} strokeWidth={2.3} />
         </button>
-        <button className="modern-button grid h-12 w-12 place-items-center border border-[#ded6c8] bg-white/85 text-[#172132]" aria-label="帮助" onClick={onOpenHelp}>
-          <CircleHelpIcon size={26} strokeWidth={2.3} />
+        <button className="modern-button grid h-10 w-10 place-items-center border border-[#ded6c8] bg-white/85 text-[#172132]" aria-label="帮助" onClick={onOpenHelp}>
+          <CircleHelpIcon size={23} strokeWidth={2.3} />
         </button>
       </div>
     </header>
@@ -795,18 +795,18 @@ function ModernToast({ message }: { message: string }) {
 
 function ModernHome({ selectedMode, onOpenTraining }: { selectedMode: Mode; onOpenTraining: (mode: Mode) => void }) {
   return (
-    <section className="relative z-10 mx-auto grid w-full max-w-[1360px] gap-5 px-6 pb-8 pt-4 xl:grid-cols-[1fr_1fr]">
-      <div className="modern-surface relative min-h-[445px] overflow-hidden p-8 sm:p-10">
+    <section className="relative z-10 mx-auto grid w-full max-w-[430px] gap-4 px-4 pb-6 pt-2">
+      <div className="modern-surface relative min-h-[360px] overflow-hidden p-6">
         <HomeHeroLandscape />
         <div className="relative z-10 max-w-[580px]">
-          <div className="text-sm font-black uppercase tracking-[7px] text-[#b76a16]">Longchuan Folk Training</div>
-          <h1 className="mt-5 font-serif text-[clamp(72px,9vw,124px)] font-black leading-[0.95] tracking-[2px] text-[#172132]">龙船调</h1>
+          <div className="text-xs font-black uppercase tracking-[5px] text-[#b76a16]">Longchuan Folk Training</div>
+          <h1 className="mt-5 font-serif text-[clamp(58px,18vw,78px)] font-black leading-[0.95] tracking-[1px] text-[#172132]">龙船调</h1>
           <div className="mt-7 flex items-center gap-4">
             <div className="h-1.5 w-28 rounded-full bg-[#d66a05]" />
             <div className="h-px w-10 bg-[#c6ad87]" />
           </div>
-          <p className="mt-8 max-w-[520px] text-[clamp(19px,2vw,25px)] leading-[1.75] tracking-[1px] text-[#33404d]">面向歌唱练习的沉浸式训练界面，按声调与旋律拆分听辨重点。</p>
-          <div className="mt-10 grid max-w-[430px] gap-4 sm:grid-cols-2">
+          <p className="mt-7 max-w-[320px] text-lg leading-[1.75] tracking-[1px] text-[#33404d]">面向歌唱练习的沉浸式训练界面，按声调与旋律拆分听辨重点。</p>
+          <div className="mt-8 grid gap-3">
             <HomeFeaturePill icon={<TuneIcon active={false} />} label="曲目" value="湖北民歌" tone="warm" />
             <HomeFeaturePill icon={<ShieldIcon />} label="难度" value="中级" tone="cool" />
           </div>
@@ -833,20 +833,20 @@ function ModernStat({ label, value }: { label: string; value: string }) {
 function ModernModeCard({ mode, selected, onClick }: { mode: Mode; selected: boolean; onClick: () => void }) {
   const isTone = mode === "tone";
   return (
-    <button type="button" aria-pressed={selected} onClick={onClick} className={`modern-button group relative grid min-h-[210px] grid-cols-[150px_1fr_60px] items-center gap-6 overflow-hidden border bg-white/82 p-7 text-left ${isTone ? "border-[#d8d2ff]" : "border-[#f0d2a6]"} ${selected ? "shadow-[0_24px_42px_rgba(41,35,25,.13)]" : "shadow-[0_16px_32px_rgba(41,35,25,.07)]"}`}>
+    <button type="button" aria-pressed={selected} onClick={onClick} className={`modern-button group relative grid min-h-[160px] grid-cols-[76px_1fr_42px] items-center gap-4 overflow-hidden border bg-white/82 p-4 text-left ${isTone ? "border-[#d8d2ff]" : "border-[#f0d2a6]"} ${selected ? "shadow-[0_18px_34px_rgba(41,35,25,.13)]" : "shadow-[0_12px_24px_rgba(41,35,25,.07)]"}`}>
       <div className={`pointer-events-none absolute -right-6 bottom-0 h-24 w-64 opacity-50 ${isTone ? "text-[#8178e6]" : "text-[#e99a34]"}`}>
         <HomeWaveLines />
       </div>
-      <div className={`relative grid h-[128px] w-[128px] place-items-center rounded-full border bg-white/62 shadow-[inset_0_0_0_8px_rgba(255,255,255,.42)] ${isTone ? "border-[#c8c1ff] text-[#5d48d9]" : "border-[#f0bd7c] text-[#d56906]"}`}>
+      <div className={`relative grid h-[70px] w-[70px] place-items-center rounded-full border bg-white/62 shadow-[inset_0_0_0_5px_rgba(255,255,255,.42)] ${isTone ? "border-[#c8c1ff] text-[#5d48d9]" : "border-[#f0bd7c] text-[#d56906]"}`}>
         <ModeMedallion isTone={isTone} active={selected} />
       </div>
       <div className="min-w-0">
-        <div className={`text-sm font-black uppercase tracking-[5px] ${isTone ? "text-[#5d48d9]" : "text-[#b76a16]"}`}>{isTone ? "Tone Contour" : "Melody Pitch"}</div>
-        <div className="mt-4 font-serif text-[clamp(34px,4vw,54px)] font-black leading-none tracking-[2px] text-[#172132]">{getTrainingTitle(mode)}</div>
-        <p className="mt-5 max-w-[430px] text-lg leading-[1.7] tracking-[1px] text-[#4f5c6b]">{getTrainingDescription(mode)}</p>
+        <div className={`text-[11px] font-black uppercase tracking-[3px] ${isTone ? "text-[#5d48d9]" : "text-[#b76a16]"}`}>{isTone ? "Tone Contour" : "Melody Pitch"}</div>
+        <div className="mt-2 font-serif text-[34px] font-black leading-none tracking-[1px] text-[#172132]">{getTrainingTitle(mode)}</div>
+        <p className="mt-3 line-clamp-2 text-sm leading-[1.6] tracking-[1px] text-[#4f5c6b]">{getTrainingDescription(mode)}</p>
       </div>
-      <div className={`relative grid h-14 w-14 place-items-center rounded-full border bg-white/82 shadow-[0_12px_25px_rgba(41,35,25,.12)] ${isTone ? "border-[#d8d2ff] text-[#5d48d9]" : "border-[#f0d2a6] text-[#d56906]"}`}>
-        <ChevronLeftIcon size={30} strokeWidth={2.4} className="rotate-180" />
+      <div className={`relative grid h-10 w-10 place-items-center rounded-full border bg-white/82 shadow-[0_10px_20px_rgba(41,35,25,.12)] ${isTone ? "border-[#d8d2ff] text-[#5d48d9]" : "border-[#f0d2a6] text-[#d56906]"}`}>
+        <ChevronLeftIcon size={24} strokeWidth={2.4} className="rotate-180" />
       </div>
     </button>
   );
@@ -878,12 +878,12 @@ function HomeFeaturePill({ icon, label, value, tone }: { icon: React.ReactNode; 
 
 function ModeMedallion({ isTone, active }: { isTone: boolean; active: boolean }) {
   return (
-    <div className="relative grid h-[104px] w-[104px] place-items-center overflow-hidden rounded-full">
+    <div className="relative grid h-[58px] w-[58px] place-items-center overflow-hidden rounded-full">
       <svg className="absolute inset-0 h-full w-full opacity-60" viewBox="0 0 104 104" aria-hidden="true">
         <path d="M0 76 C18 54 34 62 50 74 C70 90 82 66 104 54 L104 104 L0 104 Z" fill={isTone ? "#c8c1ff" : "#f7c47c"} />
         <path d="M0 84 C22 72 42 78 60 88 C78 98 92 84 104 76 L104 104 L0 104 Z" fill={isTone ? "#8178e6" : "#e99a34"} opacity=".42" />
       </svg>
-      <div className="relative z-10 scale-125">{isTone ? <WaveIcon active={active} /> : <TuneIcon active={active} />}</div>
+      <div className="relative z-10 scale-75">{isTone ? <WaveIcon active={active} /> : <TuneIcon active={active} />}</div>
     </div>
   );
 }
@@ -909,26 +909,26 @@ function HomeWaveLines() {
 
 function HomeProfilePanel() {
   return (
-    <div className="modern-surface grid gap-6 p-6 sm:grid-cols-[430px_1fr] xl:col-span-2">
-      <div className="flex items-center gap-6">
+    <div className="modern-surface grid gap-5 p-5">
+      <div className="flex items-center gap-4">
         <HomePortrait />
         <div className="min-w-0">
           <div className="flex items-center gap-3">
             <span className="grid h-8 w-8 place-items-center rounded-full bg-[#e2a54c] text-white"><ShieldIcon /></span>
-            <div className="font-serif text-3xl font-black tracking-[2px] text-[#172132]">和韵琴心</div>
+            <div className="font-serif text-2xl font-black tracking-[2px] text-[#172132]">和韵琴心</div>
           </div>
-          <div className="mt-5 text-base font-semibold tracking-[1px] text-[#4f5c6b]">累计训练 48天　|　总时长32.6小时</div>
-          <div className="mt-4 text-lg font-semibold tracking-[1px] text-[#4f5c6b]">坚持练习，静待花开</div>
+          <div className="mt-4 text-sm font-semibold leading-[1.7] tracking-[1px] text-[#4f5c6b]">累计训练 48天<br />总时长32.6小时</div>
+          <div className="mt-3 text-base font-semibold tracking-[1px] text-[#4f5c6b]">坚持练习，静待花开</div>
         </div>
       </div>
-      <div className="border-t border-[#dfd2bd] pt-6 sm:border-l sm:border-t-0 sm:pl-8 sm:pt-0">
+      <div className="border-t border-[#dfd2bd] pt-5">
         <div className="font-serif text-2xl font-black tracking-[2px] text-[#172132]">今日训练进度</div>
         <div className="mt-8 max-w-[520px]">
           <div className="relative h-4 rounded-full bg-[#eadfce] shadow-[inset_0_2px_6px_rgba(36,31,24,.12)]">
             <div className="h-full w-1/2 rounded-full bg-[linear-gradient(90deg,#c96305,#e7a144)]" />
             <div className="absolute left-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-[#e5a14a] shadow-[0_6px_15px_rgba(201,99,5,.25)]" />
           </div>
-          <div className="mt-5 grid grid-cols-3 text-lg font-semibold tracking-[1px] text-[#33404d]">
+          <div className="mt-5 grid grid-cols-3 text-sm font-semibold tracking-[1px] text-[#33404d]">
             <span>08:35</span>
             <span className="text-center text-[#c96305]">本次 12:30</span>
             <span className="text-right">25:00</span>
@@ -965,17 +965,17 @@ function HomePortrait() {
 function ModernTraining({ mode, progress, progressLabel, playback, recording, lyricIndex, onReplay, onTogglePlay, onFinish, onBack }: { mode: Mode; progress: number; progressLabel: string; playback: PlaybackState; recording: RecordingState; lyricIndex: number; onReplay: () => void; onTogglePlay: () => void; onFinish: () => void; onBack: () => void }) {
   const isTone = mode === "tone";
   return (
-    <section className="relative z-10 mx-auto grid w-full max-w-[1360px] gap-6 px-6 pb-8 pt-4 xl:grid-cols-[420px_1fr]">
-      <aside className="modern-surface p-7 sm:p-8">
+    <section className="relative z-10 mx-auto grid w-full max-w-[430px] gap-4 px-4 pb-6 pt-2">
+      <aside className="modern-surface p-5">
         <button type="button" onClick={onBack} className="modern-button inline-flex h-11 items-center gap-2 border border-[#ded6c8] bg-white/88 px-4 text-sm font-bold tracking-[1px] text-[#33404d]">
           <ChevronLeftIcon size={20} strokeWidth={2.3} />
           返回曲目主页
         </button>
-        <div className={`mt-10 text-sm font-black uppercase tracking-[5px] ${isTone ? "text-[#4f57c8]" : "text-[#b76a16]"}`}>{isTone ? "Tone Contour Practice" : "Melody Pitch Practice"}</div>
-        <h2 className="mt-5 font-serif text-[clamp(52px,7vw,82px)] font-black leading-none tracking-[2px] text-[#172132]">{getTrainingTitle(mode)}</h2>
+        <div className={`mt-7 text-xs font-black uppercase tracking-[4px] ${isTone ? "text-[#4f57c8]" : "text-[#b76a16]"}`}>{isTone ? "Tone Contour Practice" : "Melody Pitch Practice"}</div>
+        <h2 className="mt-4 font-serif text-[52px] font-black leading-none tracking-[1px] text-[#172132]">{getTrainingTitle(mode)}</h2>
         <div className={`mt-7 h-1.5 w-24 rounded-full ${isTone ? "bg-[#4f57c8]" : "bg-[#d56906]"}`} />
-        <p className="mt-8 text-xl leading-[1.85] tracking-[1px] text-[#566273]">{getTrainingDescription(mode)}</p>
-        <div className="mt-9 grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
+        <p className="mt-6 text-base leading-[1.8] tracking-[1px] text-[#566273]">{getTrainingDescription(mode)}</p>
+        <div className="mt-6 grid gap-3">
           <ModernStat label={isTone ? "训练重点" : "旋律重点"} value={isTone ? "声调" : "旋律"} />
           <ModernStat label="本次进度" value={progressLabel} />
           {!isTone && <ModernStat label="当前段落" value="主歌A" />}
@@ -989,7 +989,7 @@ function ModernTraining({ mode, progress, progressLabel, playback, recording, ly
 function ModernPracticeCard({ mode, progress, progressLabel, playback, recording, lyricIndex, onReplay, onTogglePlay, onFinish }: { mode: Mode; progress: number; progressLabel: string; playback: PlaybackState; recording: RecordingState; lyricIndex: number; onReplay: () => void; onTogglePlay: () => void; onFinish: () => void }) {
   const isTone = mode === "tone";
   return (
-    <section className="modern-surface grid min-h-[640px] grid-rows-[auto_1fr_auto_auto] gap-5 p-5 sm:p-7">
+    <section className="modern-surface grid grid-rows-[auto_1fr_auto_auto] gap-4 p-4">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#e7ddcf] pb-5">
         <div>
           <div className={`text-sm font-black tracking-[3px] ${isTone ? "text-[#4f57c8]" : "text-[#b76a16]"}`}>{isTone ? "声调歌词跟读" : "旋律歌词跟唱"}</div>
@@ -1016,7 +1016,7 @@ function ModernLyricStage({ mode, activeIndex }: { mode: Mode; activeIndex: numb
   const previousLyric = isTone ? previousTone.lyric : previousMelody.lyric;
   const nextLyric = isTone ? nextTone.lyric : nextMelody.lyric;
   if (!isTone) {
-    return <ModernMelodyStage activeIndex={activeIndex} current={melodyLine} previousLyric={previousLyric} nextLyric={nextLyric} />;
+    return <ModernMelodyStage activeIndex={activeIndex} current={melodyLine} previous={previousMelody} next={nextMelody} previousLyric={previousLyric} nextLyric={nextLyric} />;
   }
   return (
     <div className={`grid min-h-[360px] gap-5 rounded-[8px] border p-5 sm:p-6 ${isTone ? "border-[#dfe3ff] bg-[linear-gradient(145deg,rgba(251,252,255,.96),rgba(236,240,255,.78))]" : "border-[#f0d9b5] bg-[linear-gradient(145deg,rgba(255,253,247,.98),rgba(255,240,216,.76))]"}`}>
@@ -1033,6 +1033,7 @@ function ModernLyricStage({ mode, activeIndex }: { mode: Mode; activeIndex: numb
         </div>
         <ModernScoreBox mode={mode} activeIndex={activeIndex} notation={melodyLine.notation} />
       </div>
+      <ToneRelationStrip previous={previousTone} current={toneLine} next={nextTone} />
       <div className="grid gap-4">
         <ModernHintBox label={isTone ? "当前声调提示" : "当前旋律提示"} value={isTone ? toneLine.contour : melodyLine.rhythm} tone={isTone} />
       </div>
@@ -1078,7 +1079,37 @@ function ModernScoreBox({ mode, activeIndex, notation }: { mode: Mode; activeInd
   );
 }
 
-function ModernMelodyStage({ activeIndex, current, previousLyric, nextLyric }: { activeIndex: number; current: MelodyLine; previousLyric: string; nextLyric: string }) {
+function ToneRelationStrip({ previous, current, next }: { previous: ToneLine; current: ToneLine; next: ToneLine }) {
+  return (
+    <div className="rounded-[8px] border border-[#dfe3ff] bg-white/78 p-4">
+      <div className="mb-3 text-xs font-black tracking-[2px] text-[#6f78d5]">前后句语调关系</div>
+      <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-2">
+        <ToneRelationNode label="前句" value={previous.contour} muted />
+        <RelationArrow tone="tone" />
+        <ToneRelationNode label="当前" value={current.contour} />
+        <RelationArrow tone="tone" />
+        <ToneRelationNode label="后句" value={next.contour} muted />
+      </div>
+    </div>
+  );
+}
+
+function ToneRelationNode({ label, value, muted = false }: { label: string; value: string; muted?: boolean }) {
+  return (
+    <div className={`min-w-0 rounded-[8px] border px-2 py-3 text-center ${muted ? "border-[#e6e9ff] bg-[#f8f9ff] text-[#6f7890]" : "border-[#cfd5ff] bg-[#eef2ff] text-[#313a9f]"}`}>
+      <div className="text-[11px] font-black tracking-[1px]">{label}</div>
+      <div className="mt-2 text-xs font-bold leading-[1.35]">{value}</div>
+    </div>
+  );
+}
+
+function RelationArrow({ tone }: { tone: "tone" | "melody" }) {
+  return (
+    <div className={`text-lg font-black ${tone === "tone" ? "text-[#5d48d9]" : "text-[#d56906]"}`} aria-hidden="true">→</div>
+  );
+}
+
+function ModernMelodyStage({ activeIndex, current, previous, next, previousLyric, nextLyric }: { activeIndex: number; current: MelodyLine; previous: MelodyLine; next: MelodyLine; previousLyric: string; nextLyric: string }) {
   const notationItems = current.notation.split(/\s+/).filter(Boolean);
   return (
     <div className="grid gap-4 rounded-[8px] border border-[#f0d9b5] bg-[linear-gradient(145deg,rgba(255,253,247,.98),rgba(255,244,230,.84))] p-5 sm:p-6">
@@ -1096,6 +1127,7 @@ function ModernMelodyStage({ activeIndex, current, previousLyric, nextLyric }: {
           <div className="lyric-next-in mt-8 text-[clamp(20px,2.6vw,28px)] font-bold tracking-[2px] text-[#172132]">{nextLyric}</div>
         </div>
       </div>
+      <MelodyRelationStrip previous={previous} current={current} next={next} />
       <div className="rounded-[8px] border border-[#f0d9b5] bg-white/72 p-5">
         <div className="mb-4 flex items-center gap-3 text-xl font-black tracking-[1px] text-[#172132]">
           <span className="text-[#c56505]">✣</span>
@@ -1121,6 +1153,30 @@ function MelodyLandscape() {
       <path d="M724 62 C734 48 751 48 760 62M758 74 C768 60 786 60 796 74M52 82 C61 72 76 72 84 82M86 92 C96 80 112 80 122 92" stroke="#c99a58" strokeWidth="3" fill="none" strokeLinecap="round" opacity=".65" />
       <circle cx="736" cy="98" r="16" fill="#f5bd62" opacity=".58" />
     </svg>
+  );
+}
+
+function MelodyRelationStrip({ previous, current, next }: { previous: MelodyLine; current: MelodyLine; next: MelodyLine }) {
+  return (
+    <div className="rounded-[8px] border border-[#f0d9b5] bg-white/78 p-4">
+      <div className="mb-3 text-xs font-black tracking-[2px] text-[#c56505]">前后句旋律关系</div>
+      <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-stretch gap-2">
+        <MelodyRelationNode label="前句" value={previous.notation} muted />
+        <RelationArrow tone="melody" />
+        <MelodyRelationNode label="当前" value={current.notation} />
+        <RelationArrow tone="melody" />
+        <MelodyRelationNode label="后句" value={next.notation} muted />
+      </div>
+    </div>
+  );
+}
+
+function MelodyRelationNode({ label, value, muted = false }: { label: string; value: string; muted?: boolean }) {
+  return (
+    <div className={`min-w-0 rounded-[8px] border px-2 py-3 text-center ${muted ? "border-[#f2dfc0] bg-[#fffaf3] text-[#846848]" : "border-[#efc991] bg-[#fff1dc] text-[#b85f05]"}`}>
+      <div className="text-[11px] font-black tracking-[1px]">{label}</div>
+      <div className="mt-2 whitespace-normal break-words text-sm font-black leading-[1.35]">{value}</div>
+    </div>
   );
 }
 
