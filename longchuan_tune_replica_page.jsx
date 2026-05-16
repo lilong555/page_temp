@@ -306,7 +306,7 @@ export default function LongchuanTuneReplica() {
     <div className="flex min-h-screen w-full items-center justify-center overflow-x-hidden bg-[#211f1a] text-[#172132]">
       <AnimationStyles />
       <ModernAppStyles />
-      <main className="relative aspect-[16/9] w-[min(100vw,177.777dvh)] max-w-[960px] shrink-0 overflow-x-hidden overflow-y-auto bg-[#f7f2e8] shadow-[0_0_70px_rgba(0,0,0,.45)]">
+      <main className="relative h-[min(100dvh,56.25dvw)] w-[min(100dvw,177.777dvh)] shrink-0 overflow-x-hidden overflow-y-auto bg-[#f7f2e8] shadow-[0_0_70px_rgba(0,0,0,.45)]">
         <ModernBackground />
         <ModernHeader
           screen={screen}
@@ -759,7 +759,7 @@ function ModernBackground() {
 
 function ModernHeader({ screen, mode, statusText, recording, onBack, onOpenSettings, onOpenHelp }: { screen: Screen; mode: Mode; statusText: string; recording: RecordingState; onBack: () => void; onOpenSettings: () => void; onOpenHelp: () => void }) {
   return (
-    <header className="relative z-20 mx-auto flex w-full max-w-[960px] items-center gap-4 px-5 py-4">
+    <header className="relative z-20 mx-auto flex w-full items-center gap-4 px-5 py-4">
       <button className="modern-button grid h-11 w-11 shrink-0 place-items-center border border-[#ded6c8] bg-white/85 text-[#172132]" aria-label={screen === "home" ? "返回" : "返回曲目主页"} onClick={onBack}>
         <ChevronLeftIcon size={26} strokeWidth={2.3} />
       </button>
@@ -795,7 +795,7 @@ function ModernToast({ message }: { message: string }) {
 
 function ModernHome({ selectedMode, onOpenTraining }: { selectedMode: Mode; onOpenTraining: (mode: Mode) => void }) {
   return (
-    <section className="relative z-10 mx-auto grid w-full max-w-[960px] grid-cols-[1fr_1fr] gap-4 px-5 pb-5 pt-1">
+    <section className="relative z-10 mx-auto grid w-full grid-cols-[1fr_1fr] gap-4 px-5 pb-5 pt-1">
       <div className="modern-surface relative min-h-[300px] overflow-hidden p-6">
         <HomeHeroLandscape />
         <div className="relative z-10 max-w-[580px]">
@@ -965,7 +965,7 @@ function HomePortrait() {
 function ModernTraining({ mode, progress, progressLabel, playback, recording, lyricIndex, onReplay, onTogglePlay, onFinish, onBack }: { mode: Mode; progress: number; progressLabel: string; playback: PlaybackState; recording: RecordingState; lyricIndex: number; onReplay: () => void; onTogglePlay: () => void; onFinish: () => void; onBack: () => void }) {
   const isTone = mode === "tone";
   return (
-    <section className="relative z-10 mx-auto grid w-full max-w-[960px] grid-cols-[260px_1fr] gap-4 px-5 pb-5 pt-1">
+    <section className="relative z-10 mx-auto grid w-full grid-cols-[260px_1fr] gap-4 px-5 pb-5 pt-1">
       <aside className="modern-surface self-start p-5">
         <button type="button" onClick={onBack} className="modern-button inline-flex h-11 items-center gap-2 border border-[#ded6c8] bg-white/88 px-4 text-sm font-bold tracking-[1px] text-[#33404d]">
           <ChevronLeftIcon size={20} strokeWidth={2.3} />
