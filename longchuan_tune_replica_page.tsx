@@ -6,7 +6,15 @@ type PlaybackState = "idle" | "playing";
 type RecordingState = "recording" | "stopped";
 type IconProps = { size?: number; strokeWidth?: number; className?: string };
 type ToneLine = { lyric: string; guide: string; contour: string; focus: "声调" };
-type MelodyLine = { lyric: string; notation: string; rhythm: string; focus: "旋律" };
+type MelodyLine = {
+  lyric: string;
+  notation: string;
+  rhythm: string;
+  focus: "旋律";
+  pitchTip: string;
+  rhythmTip: string;
+  singingTip: string;
+};
 
 const DESIGN_WIDTH = 1536;
 const DESIGN_HEIGHT = 1152;
@@ -30,13 +38,13 @@ const tonePracticeLyrics: ToneLine[] = [
 ];
 
 const melodyPracticeLyrics: MelodyLine[] = [
-  { lyric: "正月里是新年哪", notation: "5 6 1′ 6 5 3 2", rhythm: "♩ ♩ ♪♪ ♩ ♩ ♩ ♩", focus: "旋律" },
-  { lyric: "妹娃儿去拜年哪", notation: "3 5 6 5 3 2 1", rhythm: "♩ ♪♪ ♩ ♩ ♪♪ ♩", focus: "旋律" },
-  { lyric: "金哪银儿梭", notation: "1 2 3 5 3", rhythm: "♩ ♩ ♩ ♪♪ ♩", focus: "旋律" },
-  { lyric: "阳雀叫啊捎着莺鸽", notation: "5 6 1′ 2′ 1′ 6 5 3", rhythm: "♪♪ ♪♪ ♩ ♩ ♪♪ ♩", focus: "旋律" },
-  { lyric: "妹娃要过河", notation: "3 5 6 5 2", rhythm: "♩ ♩ ♪♪ ♩ ♩", focus: "旋律" },
-  { lyric: "艄公你把舵稳着", notation: "2 3 5 6 5 3 2", rhythm: "♪♪ ♩ ♩ ♩ ♪♪ ♩", focus: "旋律" },
-  { lyric: "慢慢儿把船划过河", notation: "1 2 3 5 6 5 3 1", rhythm: "♩ ♪♪ ♩ ♪♪ ♩ ♩", focus: "旋律" },
+  { lyric: "正月里是新年哪", notation: "5 6 1′ 6 5 3 2", rhythm: "♩ ♩ ♪♪ ♩ ♩ ♩ ♩", focus: "旋律", pitchTip: "先上行至高音 1′，再逐步下行。", rhythmTip: "前半节奏较舒展，后半自然收束。", singingTip: "开口明亮，尾字“哪”轻轻托住。" },
+  { lyric: "妹娃儿去拜年哪", notation: "3 5 6 5 3 2 1", rhythm: "♩ ♪♪ ♩ ♩ ♪♪ ♩", focus: "旋律", pitchTip: "中音区起步，上扬后回落到主音。", rhythmTip: "“娃儿”用短连音，句尾留足一拍。", singingTip: "语气亲切，回落时不要压低喉位。" },
+  { lyric: "金哪银儿梭", notation: "1 2 3 5 3", rhythm: "♩ ♩ ♩ ♪♪ ♩", focus: "旋律", pitchTip: "从主音级进上行，五度处点亮后回三。", rhythmTip: "短句要稳，最后两个音轻巧衔接。", singingTip: "口型保持圆润，唱出穿梭的灵动感。" },
+  { lyric: "阳雀叫啊捎着莺鸽", notation: "5 6 1′ 2′ 1′ 6 5 3", rhythm: "♪♪ ♪♪ ♩ ♩ ♪♪ ♩", focus: "旋律", pitchTip: "冲到 2′ 后回落，山歌感要开阔。", rhythmTip: "前四音紧凑跳进，中段拉开呼吸。", singingTip: "高音放松向远处送，气息保持连贯。" },
+  { lyric: "妹娃要过河", notation: "3 5 6 5 2", rhythm: "♩ ♩ ♪♪ ♩ ♩", focus: "旋律", pitchTip: "三到六形成小峰值，落到二时要稳。", rhythmTip: "“要过”稍紧，句尾“河”放宽。", singingTip: "带一点询问感，收尾不要急着断气。" },
+  { lyric: "艄公你把舵稳着", notation: "2 3 5 6 5 3 2", rhythm: "♪♪ ♩ ♩ ♩ ♪♪ ♩", focus: "旋律", pitchTip: "逐级抬高到 6，再顺势回到 2。", rhythmTip: "起句短促，中心三拍要压住节奏。", singingTip: "声音更结实，突出“稳着”的叮嘱感。" },
+  { lyric: "慢慢儿把船划过河", notation: "1 2 3 5 6 5 3 1", rhythm: "♩ ♪♪ ♩ ♪♪ ♩ ♩", focus: "旋律", pitchTip: "由低到高铺开，再回主音完成落地。", rhythmTip: "两处短连音像划桨，末尾放慢收束。", singingTip: "气息绵长，唱出水面推开的流动感。" },
 ];
 
 function computeResponsiveScale(width: number, height: number) {
@@ -746,13 +754,14 @@ function ModernAppStyles() {
 function ModernBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-      <div className="absolute inset-0 bg-[linear-gradient(135deg,#fffaf0_0%,#f1e8d8_46%,#e8eef8_100%)]" />
-      <svg className="absolute inset-x-0 bottom-0 h-[48vh] w-full opacity-[0.32]" viewBox="0 0 1440 520" preserveAspectRatio="none">
+      <div className="absolute inset-0 bg-[url('/images/hubei-folk-bg.jpg')] bg-cover bg-center opacity-[0.42]" />
+      <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,250,240,.92)_0%,rgba(246,238,224,.76)_46%,rgba(232,238,248,.86)_100%)]" />
+      <svg className="absolute inset-x-0 bottom-0 h-[48vh] w-full opacity-[0.24]" viewBox="0 0 1440 520" preserveAspectRatio="none">
         <path d="M0 302 C130 246 220 252 340 302 C460 354 562 352 702 278 C832 210 960 210 1082 284 C1200 354 1302 360 1440 300 L1440 520 L0 520 Z" fill="#d8cdb8" />
         <path d="M0 372 C176 318 286 344 416 386 C544 428 634 418 760 356 C914 280 1028 306 1172 380 C1266 428 1360 418 1440 382 L1440 520 L0 520 Z" fill="#c9d2df" opacity=".62" />
         <path d="M1040 264 h104 v54 h-104zM1070 264 v-34 h44v34M1198 286 h144 v62h-144zM1231 286 v-42 h76v42" fill="none" stroke="#8b806e" strokeWidth="5" strokeLinecap="round" opacity=".28" />
       </svg>
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,.82),rgba(255,255,255,0)_54%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,.86),rgba(255,255,255,.24)_54%,rgba(244,236,221,.46)_100%)]" />
     </div>
   );
 }
@@ -988,12 +997,15 @@ function ModernTraining({ mode, progress, progressLabel, playback, recording, ly
 
 function ModernPracticeCard({ mode, progress, progressLabel, playback, recording, lyricIndex, onReplay, onTogglePlay, onFinish }: { mode: Mode; progress: number; progressLabel: string; playback: PlaybackState; recording: RecordingState; lyricIndex: number; onReplay: () => void; onTogglePlay: () => void; onFinish: () => void }) {
   const isTone = mode === "tone";
+  const currentLine = isTone
+    ? getCircularItem(tonePracticeLyrics, lyricIndex, tonePracticeLyrics[0])
+    : getCircularItem(melodyPracticeLyrics, lyricIndex, melodyPracticeLyrics[0]);
   return (
     <section className="modern-surface grid gap-3 p-4">
       <div className="flex items-center justify-between gap-4 border-b border-[#e7ddcf] pb-3">
         <div>
           <div className={`text-xs font-black tracking-[3px] ${isTone ? "text-[#4f57c8]" : "text-[#b76a16]"}`}>{isTone ? "声调歌词跟读" : "旋律歌词跟唱"}</div>
-          <div className="mt-2 text-xl font-black tracking-[1px] text-[#172132]">正月里是新年哪</div>
+          <div key={`practice-title-${mode}-${lyricIndex}`} className="lyric-focus-in mt-2 text-xl font-black tracking-[1px] text-[#172132]">{currentLine.lyric}</div>
         </div>
         <div className="shrink-0 rounded-[8px] border border-[#ded6c8] bg-white/76 px-3 py-2 text-xs font-bold tracking-[1px] text-[#5d6570]">{isTone ? "升降 · 轻重 · 尾音" : "音高 · 节拍 · 连贯"}</div>
       </div>
@@ -1113,7 +1125,7 @@ function ModernMelodyStage({ activeIndex, current, previous, next, previousLyric
   const notationItems = current.notation.split(/\s+/).filter(Boolean);
   return (
     <div className="grid gap-3 rounded-[8px] border border-[#f0d9b5] bg-[linear-gradient(145deg,rgba(255,253,247,.98),rgba(255,244,230,.84))] p-4">
-      <div key={`melody-stage-${activeIndex}`} className="lyric-stage-card relative min-h-[224px] overflow-hidden rounded-[8px] border border-[#f0d9b5] bg-[#fffaf1] px-6 py-5 text-center shadow-[inset_0_1px_0_rgba(255,255,255,.8)]">
+      <div key={`melody-stage-${activeIndex}`} className="lyric-stage-card relative min-h-[224px] overflow-hidden rounded-[8px] border border-[#e7c894] bg-[#fffaf1] px-6 py-5 text-center shadow-[inset_0_1px_0_rgba(255,255,255,.8)]">
         <MelodyLandscape />
         <div className="relative z-10 mx-auto max-w-[760px]">
           <div className="lyric-prev-in text-base font-bold leading-[1.35] tracking-[1px] text-[#6f7890]">{previousLyric}</div>
@@ -1135,9 +1147,9 @@ function ModernMelodyStage({ activeIndex, current, previous, next, previousLyric
           <span className="grid h-5 w-5 place-items-center rounded-full border border-[#d7b17a] text-xs text-[#a9773c]">i</span>
         </div>
         <div className="grid grid-cols-3 gap-3">
-          <MelodyTipCard title="音高走向" icon={<MelodyArrowIcon />} body="先上行至高音 1′，再逐步下行。" />
-          <MelodyTipCard title="节奏型" icon={<span className="text-4xl leading-none text-[#c56505]">♫</span>} body="前半节奏较舒展，后半收束。" />
-          <MelodyTipCard title="演唱提示" icon={<MelodyVoiceIcon />} body="音头清晰，气息连贯自然。" />
+          <MelodyTipCard title="音高走向" icon={<MelodyArrowIcon />} body={current.pitchTip} />
+          <MelodyTipCard title="节奏型" icon={<span className="text-4xl leading-none text-[#c56505]">♫</span>} body={current.rhythmTip} />
+          <MelodyTipCard title="演唱提示" icon={<MelodyVoiceIcon />} body={current.singingTip} />
         </div>
       </div>
     </div>
@@ -1146,13 +1158,11 @@ function ModernMelodyStage({ activeIndex, current, previous, next, previousLyric
 
 function MelodyLandscape() {
   return (
-    <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.34]" viewBox="0 0 920 300" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 240 C70 178 132 204 192 228 C252 252 314 230 374 198 C450 158 520 164 584 205 C652 250 712 235 780 184 C830 146 874 160 920 204 L920 300 L0 300 Z" fill="#dccfbd" />
-      <path d="M0 254 C112 220 180 246 254 266 C342 290 430 256 500 220 C590 174 660 196 734 246 C800 290 858 266 920 242 L920 300 L0 300 Z" fill="#eadfcc" />
-      <path d="M58 205 C75 158 96 118 112 82M82 184 C106 169 132 170 154 188M76 152 C104 140 128 142 150 158M101 112 C126 102 146 106 166 123" stroke="#c9a46f" strokeWidth="3" fill="none" strokeLinecap="round" opacity=".56" />
-      <path d="M724 62 C734 48 751 48 760 62M758 74 C768 60 786 60 796 74M52 82 C61 72 76 72 84 82M86 92 C96 80 112 80 122 92" stroke="#c99a58" strokeWidth="3" fill="none" strokeLinecap="round" opacity=".65" />
-      <circle cx="736" cy="98" r="16" fill="#f5bd62" opacity=".58" />
-    </svg>
+    <>
+      <div className="pointer-events-none absolute inset-0 bg-[url('/images/hubei-folk-bg.jpg')] bg-cover bg-center opacity-[0.46]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,250,239,.72),rgba(255,249,238,.86)_34%,rgba(255,249,238,.82)_66%,rgba(255,250,239,.62))]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,.54),rgba(255,255,255,.08)_58%,rgba(202,151,84,.18)_100%)]" aria-hidden="true" />
+    </>
   );
 }
 
