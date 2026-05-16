@@ -754,7 +754,7 @@ function ModernAppStyles() {
 function ModernBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-      <div className="absolute inset-0 bg-[url('/images/hubei-folk-bg.jpg')] bg-cover bg-center opacity-[0.42]" />
+      <div className="absolute inset-0 bg-[url('/images/melody-training-bg.jpg')] bg-cover bg-center opacity-[0.42]" />
       <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,250,240,.92)_0%,rgba(246,238,224,.76)_46%,rgba(232,238,248,.86)_100%)]" />
       <svg className="absolute inset-x-0 bottom-0 h-[48vh] w-full opacity-[0.24]" viewBox="0 0 1440 520" preserveAspectRatio="none">
         <path d="M0 302 C130 246 220 252 340 302 C460 354 562 352 702 278 C832 210 960 210 1082 284 C1200 354 1302 360 1440 300 L1440 520 L0 520 Z" fill="#d8cdb8" />
@@ -1159,7 +1159,7 @@ function ModernMelodyStage({ activeIndex, current, previous, next, previousLyric
 function MelodyLandscape() {
   return (
     <>
-      <div className="pointer-events-none absolute inset-0 bg-[url('/images/hubei-folk-bg.jpg')] bg-cover bg-center opacity-[0.46]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-0 bg-[url('/images/melody-training-bg.jpg')] bg-cover bg-center opacity-[0.46]" aria-hidden="true" />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,250,239,.72),rgba(255,249,238,.86)_34%,rgba(255,249,238,.82)_66%,rgba(255,250,239,.62))]" aria-hidden="true" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,.54),rgba(255,255,255,.08)_58%,rgba(202,151,84,.18)_100%)]" aria-hidden="true" />
     </>
